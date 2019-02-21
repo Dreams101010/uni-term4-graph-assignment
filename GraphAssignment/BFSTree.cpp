@@ -74,6 +74,7 @@ void BFSTree::PrintMaxLengthChains()
 {
 	for (int i : _chainStarts)
 	{
+		std::cout << "Start: " << i << " End: " << _source << std::endl;
 		PrintPathToSource(i);
 	}
 }

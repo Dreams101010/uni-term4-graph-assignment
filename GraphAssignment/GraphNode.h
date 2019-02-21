@@ -13,4 +13,4 @@ struct GraphNode
 	std::optional<int> distanceFromRoot = std::optional<int>();
 };
 
-#endif // !1
+#endif // !H_GraphNode

@@ -35,6 +35,7 @@ void Graph::RemoveEdge(int node1, int node2)
 	m->Set(node2, node1, 0);
 }
 
+// TODO: Rewrite to check by color
 bool Graph::IsSingleComponent()
 {
 	auto bfsTree = BFS(0);
