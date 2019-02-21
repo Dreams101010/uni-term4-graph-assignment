@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_Queue
+#define H_Queue
 
 #include "QueueNode.h"
 #include <vcruntime.h>
@@ -14,3 +15,5 @@ public:
 	T Dequeue();
 	bool IsEmpty();
 };
+
+#endif // !H_Queue

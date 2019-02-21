@@ -3,11 +3,10 @@
 #include "pch.h"
 #include "BFSTree.h"
 #include <vector>
-#include <memory>
 #include <iostream>
 #include "GraphNode.h"
 
-BFSTree::BFSTree(int source, std::vector<std::shared_ptr<GraphNode>> nodes, int pathMaxLength, std::vector<int> chainStarts)
+BFSTree::BFSTree(int source, std::vector<GraphNode> nodes, int pathMaxLength, std::vector<int> chainStarts)
 {
 	_source = source;
 	_nodes = nodes;
@@ -25,9 +24,9 @@ bool BFSTree::HasPathToSource(int index)
 	int curIndex = index;
 	while (curIndex != _source)
 	{
-		if (_nodes[curIndex]->parentIndex.has_value()) // if node has a parent
+		if (_nodes[curIndex].parentIndex.has_value()) // if node has a parent
 		{
-			curIndex = _nodes[curIndex]->parentIndex.value();
+			curIndex = _nodes[curIndex].parentIndex.value();
 		}
 		else
 		{
@@ -48,9 +47,9 @@ void BFSTree::PrintPathToSource(int index)
 	while (curIndex != _source)
 	{
 		path.push_back(curIndex);
-		if (_nodes[curIndex]->parentIndex.has_value()) // if node has a parent
+		if (_nodes[curIndex].parentIndex.has_value()) // if node has a parent
 		{
-			curIndex = _nodes[curIndex]->parentIndex.value();
+			curIndex = _nodes[curIndex].parentIndex.value();
 		}
 		else
 		{

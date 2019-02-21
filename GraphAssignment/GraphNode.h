@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_GraphNode
+#define H_GraphNode
 
 #include <optional>
 
@@ -11,3 +12,5 @@ struct GraphNode
 	std::optional<int> parentIndex = std::optional<int>();
 	std::optional<int> distanceFromRoot = std::optional<int>();
 };
+
+#endif // !1

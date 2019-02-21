@@ -1,6 +1,6 @@
-#pragma once
+#ifndef H_Graph
+#define H_Graph
 
-#include <memory>
 #include "Matrix.h"
 #include "BFSTree.h"
 
@@ -13,7 +13,8 @@ public:
 	void AddEdge(int node1, int node2);
 	void RemoveEdge(int node1, int node2);
 	bool IsSingleComponent();
-	// TODO: check the need of the shared pointers
 	BFSTree BFS(int source);
 	void Print_Diameter();
 };
+
+#endif // !H_Graph

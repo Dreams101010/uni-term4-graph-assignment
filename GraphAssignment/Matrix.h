@@ -1,4 +1,5 @@
-#pragma once
+#ifndef H_Matrix
+#define H_Matrix
 
 template <class T>
 class Matrix
@@ -15,3 +16,5 @@ public:
 	void Set(int row, int column, int value);
 	int GetDimension();
 };
+
+#endif // !H_Matrix

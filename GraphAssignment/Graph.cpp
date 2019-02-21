@@ -48,7 +48,6 @@ bool Graph::IsSingleComponent()
 	return true;
 }
 
-// TODO: check the need of the shared pointers
 BFSTree Graph::BFS(int source)
 {
 	if (!IsValidIndex(source))
@@ -57,15 +56,15 @@ BFSTree Graph::BFS(int source)
 	}
 	std::vector<int> maxChainEnds;
 	int curMax = 0;
-	std::vector<std::shared_ptr<GraphNode>> g;
+	std::vector<GraphNode> g;
 	for (int i = 0; i < m->GetDimension(); i++)
 	{
-		std::shared_ptr<GraphNode> node(new GraphNode());
-		node->index = i;
+		GraphNode node;
+		node.index = i;
 		g.push_back(node);
 	}
-	g[source]->color = GRAY;
-	g[source]->distanceFromRoot = 0;
+	g[source].color = GRAY;
+	g[source].distanceFromRoot = 0;
 	Queue<int> queue;
 	queue.Enqueue(source);
 	while (!queue.IsEmpty())
@@ -75,27 +74,28 @@ BFSTree Graph::BFS(int source)
 		{
 			if (m->Get(cur, i) == 1) // if i-th node adjacent to cur node
 			{
-				int curDistanceFromRoot = g[cur]->distanceFromRoot.value(); // TODO: Check if always valid
-				if (g[i]->color == WHITE)
+				// Safe to call value because every node that gets put into queue has its distance initialized
+				int curDistanceFromRoot = g[cur].distanceFromRoot.value(); 
+				if (g[i].color == WHITE)
 				{
-					g[i]->color = GRAY;
-					g[i]->distanceFromRoot = curDistanceFromRoot + 1;
-					if (g[i]->distanceFromRoot > curMax)
+					g[i].color = GRAY;
+					g[i].distanceFromRoot = curDistanceFromRoot + 1;
+					if (g[i].distanceFromRoot > curMax)
 					{
 						curMax = curDistanceFromRoot + 1;
 						maxChainEnds.clear();
 						maxChainEnds.push_back(i);
 					}
-					else if (g[i]->distanceFromRoot == curMax)
+					else if (g[i].distanceFromRoot == curMax)
 					{
 						maxChainEnds.push_back(i);
 					}
-					g[i]->parentIndex = cur;
+					g[i].parentIndex = cur;
 					queue.Enqueue(i);
 				}
 			}
 		}
-		g[cur]->color = BLACK;
+		g[cur].color = BLACK;
 	}
 	BFSTree result(source, g, curMax, maxChainEnds);
 	return result;
