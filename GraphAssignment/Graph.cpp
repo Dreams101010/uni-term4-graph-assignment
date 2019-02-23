@@ -14,6 +14,23 @@ Graph::Graph(int nodeCount)
 	m = std::shared_ptr<Matrix<int>>(new Matrix<int>(nodeCount));
 }
 
+Graph::Graph(std::shared_ptr<Matrix<int>> adjMatrix)
+{
+	m = std::shared_ptr<Matrix<int>>(new Matrix<int>(adjMatrix->GetDimension()));
+	for (int i = 0; i < adjMatrix->GetDimension(); i++)
+	{
+		for (int j = 0; j < adjMatrix->GetDimension(); j++)
+		{
+			int val = adjMatrix->Get(i, j);
+			if ((val != 0 && val != 1) || (val != adjMatrix->Get(j, i)))
+			{
+				throw std::invalid_argument("Invalid value in adjacency matrix.");
+			}
+			m->Set(i, j, val);
+		}
+	}
+}
+
 bool Graph::IsValidIndex(int index)
 {
 	if (index >= m->GetDimension() || index < 0)
