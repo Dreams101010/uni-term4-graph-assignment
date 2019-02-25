@@ -1,7 +1,6 @@
 #pragma once
 
 #include "pch.h"
-#include <vcruntime.h>
 #include <stdexcept>
 #include <exception>
 #include "Queue.h"
