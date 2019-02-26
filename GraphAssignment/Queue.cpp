@@ -8,7 +8,7 @@
 template <class T>
 void Queue<T>::Enqueue(T item)
 {
-	if (head == NULL && tail == NULL)
+	if (head == nullptr && tail == nullptr)
 	{
 		head = new QueueNode<T>();
 		head->data = item;
@@ -26,7 +26,7 @@ void Queue<T>::Enqueue(T item)
 template <class T>
 T Queue<T>::Dequeue()
 {
-	if (head == NULL && tail == NULL)
+	if (head == nullptr && tail == nullptr)
 	{
 		throw std::out_of_range("Queue was empty.");
 	}
@@ -37,8 +37,8 @@ T Queue<T>::Dequeue()
 		{
 			retVal = head->data;
 			delete head;
-			head = NULL;
-			tail = NULL;
+			head = nullptr;
+			tail = nullptr;
 		}
 		else
 		{
@@ -54,7 +54,7 @@ T Queue<T>::Dequeue()
 template <class T>
 bool Queue<T>::IsEmpty()
 {
-	return head == NULL;
+	return head == nullptr;
 }
 
 template class Queue<int>; // to avoid linker errors

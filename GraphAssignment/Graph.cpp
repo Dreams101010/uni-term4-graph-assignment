@@ -92,7 +92,7 @@ BFSTree Graph::BFS(int source)
 		{
 			if (m->Get(cur, i) == 1) // if i-th node adjacent to cur node
 			{
-				// Safe to call value because every node that gets put into queue has its distance initialized
+				// Safe to call value() because every node that gets put into queue has its distance initialized
 				int curDistanceFromRoot = g[cur].distanceFromRoot.value(); 
 				if (g[i].color == WHITE)
 				{
