@@ -31,12 +31,15 @@
 *.out
 *.app
 
-/.vs/*.*
+/.vs
 /.vs/TreeAssignment/v15/Browse.VC.opendb
-/.vs/GraphAssignment/v15/ipch
-/.vs/GraphAssignment/v15
-/Debug
-/GraphAssignment/Debug/GraphAssignment.tlog
+*.tlog
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+
+/Release
 /GraphAssignment/Debug
 /GraphAssignment/Release
-/Release
+/Debug
