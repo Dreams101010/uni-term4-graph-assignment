@@ -52,7 +52,6 @@ void Graph::RemoveEdge(int node1, int node2)
 	m->Set(node2, node1, 0);
 }
 
-// TODO: Rewrite to check by color
 bool Graph::IsSingleComponent()
 {
 	auto bfsTree = BFS(0);
@@ -74,15 +73,15 @@ BFSTree Graph::BFS(int source)
 	}
 	std::vector<int> maxChainEnds;
 	int curMax = 0;
-	std::vector<GraphNode> g;
+	std::vector<GraphNode> nodes;
 	for (int i = 0; i < m->GetDimension(); i++)
 	{
 		GraphNode node;
 		node.index = i;
-		g.push_back(node);
+		nodes.push_back(node);
 	}
-	g[source].color = GRAY;
-	g[source].distanceFromRoot = 0;
+	nodes[source].color = GRAY;
+	nodes[source].distanceFromRoot = 0;
 	Queue<int> queue;
 	queue.Enqueue(source);
 	while (!queue.IsEmpty())
@@ -93,29 +92,46 @@ BFSTree Graph::BFS(int source)
 			if (m->Get(cur, i) == 1) // if i-th node adjacent to cur node
 			{
 				// Safe to call value() because every node that gets put into queue has its distance initialized
-				int curDistanceFromRoot = g[cur].distanceFromRoot.value(); 
-				if (g[i].color == WHITE)
+				int curDistanceFromRoot = nodes[cur].distanceFromRoot.value();
+				if (nodes[i].color == WHITE)
 				{
-					g[i].color = GRAY;
-					g[i].distanceFromRoot = curDistanceFromRoot + 1;
-					if (g[i].distanceFromRoot > curMax)
+					nodes[i].color = GRAY;
+					nodes[i].distanceFromRoot = curDistanceFromRoot + 1;
+					if (nodes[i].distanceFromRoot > curMax)
 					{
 						curMax = curDistanceFromRoot + 1;
 						maxChainEnds.clear();
 						maxChainEnds.push_back(i);
 					}
-					else if (g[i].distanceFromRoot == curMax)
+					else if (nodes[i].distanceFromRoot == curMax)
 					{
 						maxChainEnds.push_back(i);
 					}
-					g[i].parentIndex = cur;
+					nodes[i].parentIndex = cur;
 					queue.Enqueue(i);
 				}
 			}
 		}
-		g[cur].color = BLACK;
+		nodes[cur].color = BLACK;
 	}
-	BFSTree result(source, g, curMax, maxChainEnds);
+	// lookup table for path traversal
+	std::vector<std::vector<int>> lookup;
+	for (unsigned int i = 0; i < m->GetDimension(); i++)
+	{
+		std::vector<int> v;
+		for (unsigned int j = 0; j < m->GetDimension(); j++)
+		{
+			if (m->Get(i, j) == 1) // if i-th and j-th nodes are adjacent
+			{
+				if (nodes[i].distanceFromRoot.value() - 1 == nodes[j].distanceFromRoot.value())
+				{
+					v.push_back(j);
+				}
+			}
+		}
+		lookup.push_back(v);
+	}
+	BFSTree result(source, nodes, curMax, maxChainEnds, lookup);
 	return result;
 }
 

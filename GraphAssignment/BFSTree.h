@@ -11,11 +11,14 @@ class BFSTree
 	std::vector<GraphNode> _nodes;
 	int _pathMaxLength;
 	std::vector<int> _chainStarts;
+	std::vector<std::vector<int>> _lookup;
 public:
-	BFSTree(int source, std::vector<GraphNode> nodes, int pathMaxLength, std::vector<int> chainStarts);
+	BFSTree(int source, std::vector<GraphNode> nodes, 
+		int pathMaxLength, std::vector<int> chainStarts, std::vector<std::vector<int>> lookup);
 	int GetMaxChainLength();
 	bool HasPathToSource(int index);
 	void PrintPathToSource(int index);
+	void PrintPathsToSource(int index);
 	void PrintMaxLengthChains();
 };
 
