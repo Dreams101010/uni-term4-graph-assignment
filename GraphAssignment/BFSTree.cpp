@@ -42,36 +42,6 @@ bool BFSTree::HasPathToSource(int index)
 	return false;
 }
 
-void BFSTree::PrintPathToSource(int index)
-{
-	std::vector<int> path;
-	int curIndex = index;
-	while (curIndex != _source)
-	{
-		path.push_back(curIndex);
-		if (_nodes[curIndex].parentIndex.has_value()) // if node has a parent
-		{
-			curIndex = _nodes[curIndex].parentIndex.value();
-		}
-		else
-		{
-			break;
-		}
-	}
-	if (curIndex == _source)
-	{
-		path.push_back(_source);
-		for (std::vector<int>::iterator it = path.begin(); it != path.end(); ++it) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-	}
-	else
-	{
-		std::cout << "There is no path between " << index << " and " << _source << "." << std::endl;
-	}
-}
-
 void BFSTree::PrintPathsToSource(int index)
 {
 	std::vector<std::vector<int>> stack;
@@ -111,7 +81,7 @@ void BFSTree::PrintMaxLengthChains()
 {
 	for (int i : _chainStarts)
 	{
-		if (i < _source)
+		if ((i < _source) || PRINT_DUPLICATES)
 		{
 			std::cout << "Start: " << i << " End: " << _source << std::endl;
 			PrintPathsToSource(i);

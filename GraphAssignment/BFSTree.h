@@ -12,12 +12,12 @@ class BFSTree
 	int _pathMaxLength;
 	std::vector<int> _chainStarts;
 	std::vector<std::vector<int>> _lookup;
+	static const bool PRINT_DUPLICATES = false;
 public:
 	BFSTree(int source, std::vector<GraphNode> nodes, 
 		int pathMaxLength, std::vector<int> chainStarts, std::vector<std::vector<int>> lookup);
 	int GetMaxChainLength();
 	bool HasPathToSource(int index);
-	void PrintPathToSource(int index);
 	void PrintPathsToSource(int index);
 	void PrintMaxLengthChains();
 };

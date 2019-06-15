@@ -89,7 +89,7 @@ BFSTree Graph::BFS(int source)
 		int cur = queue.Dequeue();
 		for (int i = 0; i < m->GetDimension(); i++)
 		{
-			if (m->Get(cur, i) == 1) // if i-th node adjacent to cur node
+			if (m->Get(cur, i) == 1) // if i-th node adjacent to current node
 			{
 				// Safe to call value() because every node that gets put into queue has its distance initialized
 				int curDistanceFromRoot = nodes[cur].distanceFromRoot.value();
@@ -139,7 +139,7 @@ void Graph::Print_Diameter()
 {
 	if (!IsSingleComponent())
 	{
-		std::cout << "This graph has no edges or has multiple components. Can't find the diameter." << std::endl;
+		std::cout << "This graph has no edges or has multiple components. Diameter doesn't exist." << std::endl;
 		return;
 	}
 	if (m->GetDimension() == 1) // corner case
